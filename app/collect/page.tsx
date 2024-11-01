@@ -4,7 +4,7 @@ import { Trash2, MapPin, CheckCircle, Clock, ArrowRight, Camera, Upload, Loader,
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from 'react-hot-toast'
-import { getWasteCollectionTasks, updateTaskStatus, saveReward, saveCollectedWaste, getUserByEmail } from '@/utils/db/action'
+import { getWasteCollectionTasks, updateTaskStatus, saveReward, saveCollectedWaste, getUserByEmail } from '@/utils/db/actions'
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
 // Make sure to set your Gemini API key in your environment variables

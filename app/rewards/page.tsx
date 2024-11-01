@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Coins, ArrowUpRight, ArrowDownRight, Gift, AlertCircle, Loader } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getUserByEmail, getRewardTransactions, getAvailableRewards, redeemReward, createTransaction } from '@/utils/db/action'
+import { getUserByEmail, getRewardTransactions, getAvailableRewards, redeemReward, createTransaction } from '@/utils/db/actions'
 import { toast } from 'react-hot-toast'
 
 type Transaction = {

@@ -1,12 +1,13 @@
-// @ts-nocheck
+
 'use client'
 import { useState, useEffect } from 'react'
-import { ArrowRight, Leaf, Recycle, Users, Coins, MapPin, ChevronRight } from 'lucide-react'
+import { ArrowRight, Leaf, Recycle, Users, Coins, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
-import ContractInteraction from '@/components/ContractInteraction'
+import { useSession } from 'next-auth/react'; // Import useSession
 import { getRecentReports, getAllRewards, getWasteCollectionTasks } from '@/utils/db/actions'
+
 const poppins = Poppins({ 
   weight: ['300', '400', '600'],
   subsets: ['latin'],
@@ -26,15 +27,13 @@ function AnimatedGlobe() {
 }
 
 export default function Home() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { data: session } = useSession(); // Use useSession to get session data
   const [impactData, setImpactData] = useState({
     wasteCollected: 0,
     reportsSubmitted: 0,
     tokensEarned: 0,
     co2Offset: 0
   });
-
-  
 
   useEffect(() => {
     async function fetchImpactData() {
@@ -74,22 +73,18 @@ export default function Home() {
     fetchImpactData();
   }, []);
 
-  const login = () => {
-    setLoggedIn(true);
-  };
-
   return (
     <div className={`container mx-auto px-4 py-16 ${poppins.className}`}>
       <section className="text-center mb-20">
         <AnimatedGlobe />
         <h1 className="text-6xl font-bold mb-6 text-gray-800 tracking-tight">
-          Zero-to-Hero <span className="text-green-600">Waste Management</span>
+          ZeroWaste <span className="text-green-600">Waste Management</span>
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
           Join our community in making waste management more efficient and rewarding!
         </p>
-        {!loggedIn ? (
-          <Button onClick={login} className="bg-green-600 hover:bg-green-700 text-white text-lg py-6 px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
+        {!session ? ( // Check if user is logged in via session
+          <Button onClick={() => signIn()} className="bg-green-600 hover:bg-green-700 text-white text-lg py-6 px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
             Get Started
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
@@ -130,8 +125,6 @@ export default function Home() {
           <ImpactCard title="CO2 Offset" value={`${impactData.co2Offset} kg`} icon={Leaf} />
         </div>
       </section>
-
-   
     </div>
   )
 }

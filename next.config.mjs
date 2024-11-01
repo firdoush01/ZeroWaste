@@ -1,4 +1,5 @@
-import { WEB3AUTH_NETWORK } from '@web3auth/base';
+import pkg from '@web3auth/base';
+const { WEB3AUTH_NETWORK } = pkg;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
